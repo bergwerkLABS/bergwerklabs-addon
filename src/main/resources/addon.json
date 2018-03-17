@@ -1,0 +1,9 @@
+{
+  "uuid": "%uuid%",
+  "name": "LabyBergwerk",
+  "description": "Ein offizielles Addon für bergwerkLABS.de",
+  "version": 1.0,
+  "author": "Nico_ND1",
+  "category": 1,
+  "mainClass": "de.bergwerklabs.labymodaddon.LabyBergwerk"
+}
