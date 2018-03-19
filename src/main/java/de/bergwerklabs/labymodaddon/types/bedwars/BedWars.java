@@ -30,10 +30,6 @@ public class BedWars extends Info {
     }
 
     @Override
-    public void handle(JsonObject obj) {
-    }
-
-    @Override
     public boolean isEnabled() {
         return isOnServer();
     }

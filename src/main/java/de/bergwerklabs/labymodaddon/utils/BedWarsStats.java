@@ -7,6 +7,7 @@
 package de.bergwerklabs.labymodaddon.utils;
 
 import com.google.gson.annotations.Expose;
+import de.bergwerklabs.labymodaddon.types.bedwars.BedWars;
 import de.bergwerklabs.labymodaddon.types.bedwars.BedWarsMap;
 
 /**
@@ -19,6 +20,8 @@ public class BedWarsStats {
     private String rank, team, shop;
     @Expose
     private BedWarsMap bedWarsMap;
+    @Expose
+    private BedWars.BedWarsState state;
 
     /**
      * @return the bedWarsMap
@@ -74,6 +77,20 @@ public class BedWarsStats {
      */
     public void setShop(String shop) {
         this.shop = shop;
+    }
+
+    /**
+     * @return the state
+     */
+    public BedWars.BedWarsState getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(BedWars.BedWarsState state) {
+        this.state = state;
     }
 
 }

@@ -36,22 +36,20 @@ public class Lobby extends Info {
         return new String[]{"lobby", "hub"};
     }
 
-    @Override
-    public void handle(JsonObject obj) {
-        if (obj.has("coins")) {
-            coins = obj.get("coins").getAsInt();
-        }
-        if (obj.has("rang")) {
-            rang = obj.get("rang").getAsString();
-        }
-    }
-
     public String getRang() {
         return rang;
     }
 
+    public void setRang(String rang) {
+        this.rang = rang;
+    }
+
     public int getCoins() {
         return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     private LobbyModule lobbyModule;

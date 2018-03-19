@@ -29,11 +29,6 @@ public class Flash extends Info {
     public String[] getServerName() {
         return new String[]{"flash"};
     }
-
-    @Override
-    public void handle(JsonObject obj) {
-        
-    }
     
     private String effectName;
     private int checkpoint, fails;

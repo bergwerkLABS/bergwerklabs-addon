@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
+import de.bergwerklabs.labymodaddon.LabyBergwerk;
 
 /**
  *
@@ -89,6 +90,36 @@ public class BergwerkStats {
      */
     public void setTryJumpStats(TryJumpStats tryJumpStats) {
         this.tryJumpStats = tryJumpStats;
+    }
+
+    public void apply() {
+        if(getBedWarsStats() != null) {
+            LabyBergwerk.getInstance().getBedWars().setMap(getBedWarsStats().getBedWarsMap());
+            LabyBergwerk.getInstance().getBedWars().setRank(getBedWarsStats().getRank());
+            LabyBergwerk.getInstance().getBedWars().setShop(getBedWarsStats().getShop());
+            LabyBergwerk.getInstance().getBedWars().setTeam(getBedWarsStats().getTeam());
+            LabyBergwerk.getInstance().getBedWars().setState(getBedWarsStats().getState());
+        }
+        if(getFlashStats() != null) {
+            LabyBergwerk.getInstance().getFlash().setCheckpoint(getFlashStats().getCheckpoints());
+            LabyBergwerk.getInstance().getFlash().setEffectName(getFlashStats().getEffekt());
+            LabyBergwerk.getInstance().getFlash().setFails(getFlashStats().getFails());
+            LabyBergwerk.getInstance().getFlash().setMap(getFlashStats().getFlashMap());
+            LabyBergwerk.getInstance().getFlash().setState(getFlashStats().getState());
+        }
+        if(getLobbyStats() != null) {
+            LabyBergwerk.getInstance().getLobby().setCoins(getLobbyStats().getCoins());
+            LabyBergwerk.getInstance().getLobby().setRang(getLobbyStats().getRang());
+        }
+        if(getTryJumpStats() != null) {
+            LabyBergwerk.getInstance().getTryJump().setFails(getTryJumpStats().getFails());
+            LabyBergwerk.getInstance().getTryJump().setLives(getTryJumpStats().getLives());
+            LabyBergwerk.getInstance().getTryJump().setPercent(getTryJumpStats().getPercent());
+            LabyBergwerk.getInstance().getTryJump().setPlatz(getTryJumpStats().getPlatz());
+            LabyBergwerk.getInstance().getTryJump().setState(getTryJumpStats().getState());
+            LabyBergwerk.getInstance().getTryJump().setTokens(getTryJumpStats().getTokens());
+            LabyBergwerk.getInstance().getTryJump().setModule(getTryJumpStats().getModule());
+        }
     }
 
 }

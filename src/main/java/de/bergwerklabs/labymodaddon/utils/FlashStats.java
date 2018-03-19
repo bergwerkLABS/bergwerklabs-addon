@@ -7,6 +7,7 @@
 package de.bergwerklabs.labymodaddon.utils;
 
 import com.google.gson.annotations.Expose;
+import de.bergwerklabs.labymodaddon.types.flash.Flash;
 import de.bergwerklabs.labymodaddon.types.flash.FlashMap;
 
 /**
@@ -21,6 +22,8 @@ public class FlashStats {
     private String effekt;
     @Expose
     private int checkpoints, fails;
+    @Expose
+    private Flash.FlashState state;
 
     /**
      * @return the flashMap
@@ -76,6 +79,20 @@ public class FlashStats {
      */
     public void setFails(int fails) {
         this.fails = fails;
+    }
+
+    /**
+     * @return the state
+     */
+    public Flash.FlashState getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(Flash.FlashState state) {
+        this.state = state;
     }
 
 }

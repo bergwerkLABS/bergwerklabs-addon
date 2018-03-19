@@ -11,9 +11,12 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import de.bergwerklabs.labymodaddon.types.bedwars.BedWars;
 import de.bergwerklabs.labymodaddon.types.bedwars.BedWarsMap;
+import de.bergwerklabs.labymodaddon.types.flash.Flash;
 import de.bergwerklabs.labymodaddon.types.flash.FlashMap;
 import de.bergwerklabs.labymodaddon.types.tryjump.Module;
+import de.bergwerklabs.labymodaddon.types.tryjump.TryJump;
 import java.lang.reflect.Type;
 
 /**
@@ -42,6 +45,7 @@ public class BergwerkStatsDeserializer implements JsonDeserializer<BergwerkStats
         stats.setTeam(obj.get("team").getAsString());
         stats.setShop(obj.get("shop").getAsString());
         stats.setBedWarsMap(fromBWJson(obj.get("bedWarsMap").getAsJsonObject()));
+        stats.setState(BedWars.BedWarsState.valueOf(obj.get("state").getAsString()));
         
         return stats;
     }
@@ -57,6 +61,7 @@ public class BergwerkStatsDeserializer implements JsonDeserializer<BergwerkStats
         stats.setFails(obj.get("checkpoints").getAsInt());
         stats.setEffekt(obj.get("effekt").getAsString());
         stats.setFlashMap(fromFMJson(obj.get("flashMap").getAsJsonObject()));
+        stats.setState(Flash.FlashState.valueOf(obj.get("state").getAsString()));
         
         return stats;
     }
@@ -78,8 +83,12 @@ public class BergwerkStatsDeserializer implements JsonDeserializer<BergwerkStats
         TryJumpStats stats = new TryJumpStats();
         
         stats.setModule(fromJson(obj.get("module").getAsJsonObject()));
-        stats.setCheckpoint(obj.get("checkpoint").getAsInt());
         stats.setFails(obj.get("fails").getAsInt());
+        stats.setPlatz(obj.get("platz").getAsInt());
+        stats.setTokens(obj.get("tokens").getAsInt());
+        stats.setPercent(obj.get("percent").getAsInt());
+        stats.setLives(obj.get("lives").getAsInt());
+        stats.setState(TryJump.TryJumpState.valueOf(obj.get("state").getAsString()));
         
         return stats;
     }

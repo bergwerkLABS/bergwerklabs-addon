@@ -30,7 +30,7 @@ public class TryJump extends Info {
         return new String[]{"tryjump"};
     }
 
-    @Override
+    /*@Override
     public void handle(JsonObject obj) {
         this.module = new Module(obj.get("module").getAsJsonObject().get("name").getAsString(),
                 obj.get("module").getAsJsonObject().get("schwierigkeit").getAsString());
@@ -39,7 +39,7 @@ public class TryJump extends Info {
         this.platz = obj.get("platz").getAsInt();
         this.percent = obj.get("percent").getAsInt();
         this.lives = obj.get("lives").getAsInt();
-    }
+    }*/
     
     private Module module;
     private int fails, tokens, platz, percent, lives;

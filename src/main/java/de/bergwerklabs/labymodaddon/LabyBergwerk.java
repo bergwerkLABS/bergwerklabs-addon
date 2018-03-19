@@ -138,6 +138,8 @@ public class LabyBergwerk extends LabyModAddon {
                     
                     BergwerkStats stats = new GsonBuilder().registerTypeAdapter(BergwerkStats.class, new BergwerkStatsDeserializer()).create()
                             .fromJson(obj, BergwerkStats.class);
+                    
+                    stats.apply();
                 }
             }
         });

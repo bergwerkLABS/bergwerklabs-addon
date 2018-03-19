@@ -21,8 +21,6 @@ public abstract class Info {
     public abstract String getName();
     public abstract String getDescription();
     public abstract String[] getServerName();
-    //public abstract boolean isEnabled();
-    public abstract void handle(JsonObject obj);
 
     public abstract boolean isEnabled();
     
