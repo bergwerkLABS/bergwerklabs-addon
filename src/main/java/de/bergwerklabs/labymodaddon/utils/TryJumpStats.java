@@ -12,7 +12,7 @@ import de.bergwerklabs.labymodaddon.types.tryjump.Module;
  *
  * @author Nico_ND1
  */
-public class TryJumpStats extends BergwerkStats {
+public class TryJumpStats {
 
     @Expose
     private Module module;

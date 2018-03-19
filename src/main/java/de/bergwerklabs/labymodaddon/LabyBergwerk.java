@@ -5,6 +5,7 @@
  */
 package de.bergwerklabs.labymodaddon;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.bergwerklabs.labymodaddon.types.bedwars.BWMapModule;
@@ -30,6 +31,8 @@ import de.bergwerklabs.labymodaddon.types.tryjump.RemainingLivesModule;
 import de.bergwerklabs.labymodaddon.types.tryjump.TokensModule;
 import de.bergwerklabs.labymodaddon.types.tryjump.TryJump;
 import de.bergwerklabs.labymodaddon.types.tryjump.TryJumpModule;
+import de.bergwerklabs.labymodaddon.utils.BergwerkStats;
+import de.bergwerklabs.labymodaddon.utils.BergwerkStatsDeserializer;
 import java.util.List;
 import net.labymod.api.LabyModAddon;
 import net.labymod.api.events.MessageReceiveEvent;
@@ -130,6 +133,11 @@ public class LabyBergwerk extends LabyModAddon {
                         setServerType(obj.get("server").getAsString());
                         LabyMod.getInstance().getChatClient().updatePlayingOnServerState(obj.get("server").getAsString());
                     }
+                } else if(key.equalsIgnoreCase("statsUpdate")) {
+                    JsonObject obj = je.getAsJsonObject();
+                    
+                    BergwerkStats stats = new GsonBuilder().registerTypeAdapter(BergwerkStats.class, new BergwerkStatsDeserializer()).create()
+                            .fromJson(obj, BergwerkStats.class);
                 }
             }
         });

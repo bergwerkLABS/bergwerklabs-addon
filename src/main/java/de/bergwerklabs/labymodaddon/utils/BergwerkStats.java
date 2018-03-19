@@ -6,6 +6,9 @@
 
 package de.bergwerklabs.labymodaddon.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -13,6 +16,15 @@ import com.google.gson.annotations.Expose;
  * @author  Nico_ND1
  */
 public class BergwerkStats {
+    
+    public BergwerkStats() {
+    }
+    
+    public String toJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        
+        return gson.toJson(new JsonParser().parse(gson.toJson(this)));
+    }
     
     @Expose
     private BedWarsStats bedWarsStats;

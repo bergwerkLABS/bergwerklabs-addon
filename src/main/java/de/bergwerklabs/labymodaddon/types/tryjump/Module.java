@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package de.bergwerklabs.labymodaddon.types.tryjump;
 
 import com.google.gson.annotations.Expose;
 
 /**
  *
- * @author  Nico_ND1
+ * @author Nico_ND1
  */
 public class Module {
-    
-    @Expose private final String name, schwierigkeit;
-    @Expose private boolean lite;
-    @Expose private int fails;
-    
+
+    @Expose
+    private final String name, schwierigkeit;
+    @Expose
+    private boolean lite;
+    @Expose
+    private int fails;
+
     public Module(String name, String schwierigkeit) {
         this.name = name;
         this.schwierigkeit = schwierigkeit;
