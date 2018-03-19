@@ -20,6 +20,9 @@ public class PercentageModule extends SimpleModule {
     
     public PercentageModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
+        LabyBergwerk.getInstance().getTryJump().getModules().add(this);
+        
+        getBooleanElement().setVisible(false);
     }
 
     @Override

@@ -6,15 +6,17 @@
 
 package de.bergwerklabs.labymodaddon.types.tryjump;
 
+import com.google.gson.annotations.Expose;
+
 /**
  *
  * @author  Nico_ND1
  */
 public class Module {
     
-    private final String name, schwierigkeit;
-    private boolean lite;
-    private int fails;
+    @Expose private final String name, schwierigkeit;
+    @Expose private boolean lite;
+    @Expose private int fails;
     
     public Module(String name, String schwierigkeit) {
         this.name = name;

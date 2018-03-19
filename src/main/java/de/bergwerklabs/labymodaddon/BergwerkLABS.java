@@ -7,7 +7,6 @@ package de.bergwerklabs.labymodaddon;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import de.bergwerklabs.labymodaddon.utils.LabyBergwerkConnect;
 import java.util.List;
 import net.labymod.api.events.TabListEvent;
 import net.labymod.main.LabyMod;
@@ -54,6 +53,7 @@ public class BergwerkLABS extends Server {
 
     @Override
     public void fillSubSettings(List<SettingsElement> list) {
+        list.clear();
     }
 
 }

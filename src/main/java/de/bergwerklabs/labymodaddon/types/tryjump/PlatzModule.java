@@ -20,6 +20,9 @@ public class PlatzModule extends SimpleModule {
     
     public PlatzModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
+        LabyBergwerk.getInstance().getTryJump().getModules().add(this);
+        
+        getBooleanElement().setVisible(false);
     }
 
     @Override

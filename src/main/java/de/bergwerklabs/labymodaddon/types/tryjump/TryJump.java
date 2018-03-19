@@ -135,6 +135,11 @@ public class TryJump extends Info {
     public void setLives(int lives) {
         this.lives = lives;
     }
+
+    @Override
+    public boolean isEnabled() {
+        return isOnServer();
+    }
     
     public enum TryJumpState {
         
@@ -150,6 +155,16 @@ public class TryJump extends Info {
 
     public void setState(TryJumpState state) {
         this.state = state;
+    }
+
+    private TryJumpModule tryJumpModule;
+
+    public TryJumpModule getTryJumpModule() {
+        return tryJumpModule;
+    }
+
+    public void setTryJumpModule(TryJumpModule tryJumpModule) {
+        this.tryJumpModule = tryJumpModule;
     }
 
 }

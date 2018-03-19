@@ -3,17 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package de.bergwerklabs.labymodaddon.types.lobby;
 
 import com.google.gson.JsonObject;
+import de.bergwerklabs.labymodaddon.LabyBergwerk;
 import de.bergwerklabs.labymodaddon.types.Info;
 
 /**
  *
- * @author  Nico_ND1
+ * @author Nico_ND1
  */
 public class Lobby extends Info {
+
+    private int coins = -1;
+    private String rang = "Spieler";
+
+    public Lobby() {
+    }
 
     @Override
     public String getName() {
@@ -29,19 +35,13 @@ public class Lobby extends Info {
     public String[] getServerName() {
         return new String[]{"lobby", "hub"};
     }
-    
-    private int coins = -1;
-    private String rang = "Spieler";
-    
-    public Lobby() {
-    }
-    
+
     @Override
     public void handle(JsonObject obj) {
-        if(obj.has("coins")) {
+        if (obj.has("coins")) {
             coins = obj.get("coins").getAsInt();
         }
-        if(obj.has("rang")) {
+        if (obj.has("rang")) {
             rang = obj.get("rang").getAsString();
         }
     }
@@ -52,6 +52,21 @@ public class Lobby extends Info {
 
     public int getCoins() {
         return coins;
+    }
+
+    private LobbyModule lobbyModule;
+
+    public LobbyModule getLobbyModule() {
+        return lobbyModule;
+    }
+
+    public void setLobbyModule(LobbyModule lobbyModule) {
+        this.lobbyModule = lobbyModule;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isOnServer();
     }
 
 }

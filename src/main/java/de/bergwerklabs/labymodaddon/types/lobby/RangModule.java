@@ -21,6 +21,9 @@ public class RangModule extends SimpleModule {
 
     public RangModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
+        LabyBergwerk.getInstance().getLobby().getModules().add(this);
+        
+        getBooleanElement().setVisible(false);
     }
 
     @Override
@@ -68,14 +71,8 @@ public class RangModule extends SimpleModule {
         return LabyBergwerk.getInstance().getCategory();
     }
     
-    private boolean shown = false;
     @Override
     public boolean isShown() {
-        if(!shown) {
-            shown = true;
-            return LabyBergwerk.getInstance().getLobby().isEnabled();
-        }
-        
         return LabyBergwerk.getInstance().getLobby().isEnabled() && getBooleanElement().getCurrentValue();
     }
 

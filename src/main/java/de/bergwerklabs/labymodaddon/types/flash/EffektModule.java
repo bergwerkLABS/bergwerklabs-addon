@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.bergwerklabs.labymodaddon.types.lobby;
+
+package de.bergwerklabs.labymodaddon.types.flash;
 
 import de.bergwerklabs.labymodaddon.LabyBergwerk;
 import net.labymod.ingamegui.ModuleCategory;
@@ -13,43 +14,35 @@ import net.labymod.utils.Material;
 
 /**
  *
- * @author Nico_ND1
+ * @author  Nico_ND1
  */
-public class CoinsModule extends SimpleModule {
-
-    public CoinsModule() {
+public class EffektModule extends SimpleModule {
+    
+    public EffektModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
-        LabyBergwerk.getInstance().getLobby().getModules().add(this);
+        LabyBergwerk.getInstance().getFlash().getModules().add(this);
         
         getBooleanElement().setVisible(false);
-
-        /*setKeyVisible(false);
-        settingUpdated(false);
-        getBooleanElement().setVisible(false);
-        getBooleanElement().getButtonAdvanced().enabled = false;
-        getBooleanElement().setSettingEnabled(false);
-        getBooleanElement().setSelected(false);
-        getBooleanElement().updateScreen();*/
     }
 
     @Override
     public String getDisplayName() {
-        return "Coins";
+        return "Effekt";
     }
 
     @Override
     public String getDisplayValue() {
-        return String.valueOf(LabyBergwerk.getInstance().getLobby().getCoins());
+        return LabyBergwerk.getInstance().getFlash().getEffectName();
     }
 
     @Override
     public String getDefaultValue() {
-        return "0";
+        return "/";
     }
 
     @Override
     public ControlElement.IconData getIconData() {
-        return new ControlElement.IconData(Material.GOLD_INGOT);
+        return new ControlElement.IconData(Material.POTION);
     }
 
     @Override
@@ -59,12 +52,12 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public String getSettingName() {
-        return "Coins";
+        return "Effekt";
     }
 
     @Override
     public String getDescription() {
-        return "Zeigt deine Coins an";
+        return "Zeigt dein Effekt an";
     }
 
     @Override
@@ -79,7 +72,7 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public boolean isShown() {
-        return LabyBergwerk.getInstance().getLobby().isEnabled() && getBooleanElement().getCurrentValue();
+        return LabyBergwerk.getInstance().getFlash().isEnabled() && getBooleanElement().getCurrentValue();
     }
 
 }

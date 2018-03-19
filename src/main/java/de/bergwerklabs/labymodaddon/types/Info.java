@@ -8,6 +8,9 @@ package de.bergwerklabs.labymodaddon.types;
 
 import com.google.gson.JsonObject;
 import de.bergwerklabs.labymodaddon.LabyBergwerk;
+import java.util.ArrayList;
+import java.util.List;
+import net.labymod.ingamegui.Module;
 
 /**
  *
@@ -21,7 +24,9 @@ public abstract class Info {
     //public abstract boolean isEnabled();
     public abstract void handle(JsonObject obj);
 
-    public boolean isEnabled() {
+    public abstract boolean isEnabled();
+    
+    public boolean isOnServer() {
         for(String s : getServerName()) {
             if(LabyBergwerk.getInstance().getApi().getCurrentServer() != null && 
                     LabyBergwerk.getInstance().getApi().getCurrentServer().getIp().contains("bergwerklabs.de") &&
@@ -31,6 +36,12 @@ public abstract class Info {
         }
         
         return false;
+    }
+    
+    private final List<Module> modules = new ArrayList<Module>();
+
+    public List<Module> getModules() {
+        return modules;
     }
     
 }

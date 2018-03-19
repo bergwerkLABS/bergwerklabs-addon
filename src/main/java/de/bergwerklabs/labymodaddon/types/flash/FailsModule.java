@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.bergwerklabs.labymodaddon.types.lobby;
+package de.bergwerklabs.labymodaddon.types.flash;
 
 import de.bergwerklabs.labymodaddon.LabyBergwerk;
 import net.labymod.ingamegui.ModuleCategory;
@@ -15,31 +15,23 @@ import net.labymod.utils.Material;
  *
  * @author Nico_ND1
  */
-public class CoinsModule extends SimpleModule {
+public class FailsModule extends SimpleModule {
 
-    public CoinsModule() {
+    public FailsModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
-        LabyBergwerk.getInstance().getLobby().getModules().add(this);
-        
-        getBooleanElement().setVisible(false);
+        LabyBergwerk.getInstance().getFlash().getModules().add(this);
 
-        /*setKeyVisible(false);
-        settingUpdated(false);
         getBooleanElement().setVisible(false);
-        getBooleanElement().getButtonAdvanced().enabled = false;
-        getBooleanElement().setSettingEnabled(false);
-        getBooleanElement().setSelected(false);
-        getBooleanElement().updateScreen();*/
     }
 
     @Override
     public String getDisplayName() {
-        return "Coins";
+        return "Fails";
     }
 
     @Override
     public String getDisplayValue() {
-        return String.valueOf(LabyBergwerk.getInstance().getLobby().getCoins());
+        return String.valueOf(LabyBergwerk.getInstance().getFlash().getFails());
     }
 
     @Override
@@ -49,7 +41,7 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public ControlElement.IconData getIconData() {
-        return new ControlElement.IconData(Material.GOLD_INGOT);
+        return new ControlElement.IconData(Material.BARRIER);
     }
 
     @Override
@@ -59,12 +51,12 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public String getSettingName() {
-        return "Coins";
+        return "Fails";
     }
 
     @Override
     public String getDescription() {
-        return "Zeigt deine Coins an";
+        return "Zeigt deine Fails an";
     }
 
     @Override
@@ -79,7 +71,8 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public boolean isShown() {
-        return LabyBergwerk.getInstance().getLobby().isEnabled() && getBooleanElement().getCurrentValue();
+        return LabyBergwerk.getInstance().getFlash().getState() == Flash.FlashState.INGAME
+                && LabyBergwerk.getInstance().getFlash().isEnabled() && getBooleanElement().getCurrentValue();
     }
 
 }

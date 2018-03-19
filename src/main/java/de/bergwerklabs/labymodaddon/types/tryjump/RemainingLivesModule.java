@@ -20,6 +20,9 @@ public class RemainingLivesModule extends SimpleModule {
     
     public RemainingLivesModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
+        LabyBergwerk.getInstance().getTryJump().getModules().add(this);
+        
+        getBooleanElement().setVisible(false);
     }
 
     @Override

@@ -85,3 +85,5 @@ processResources
 runClient {
     jvmArgs "-Dfml.coreMods.load=net.labymod.core.asm.LabyModCoreMod","-DdebugMode=ALL","-Daddonresources=addon.json"
 }
+
+compileJava.options.encoding = 'UTF-8'

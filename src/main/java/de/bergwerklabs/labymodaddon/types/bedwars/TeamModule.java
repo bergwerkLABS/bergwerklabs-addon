@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.bergwerklabs.labymodaddon.types.lobby;
+
+package de.bergwerklabs.labymodaddon.types.bedwars;
 
 import de.bergwerklabs.labymodaddon.LabyBergwerk;
 import net.labymod.ingamegui.ModuleCategory;
@@ -13,43 +14,35 @@ import net.labymod.utils.Material;
 
 /**
  *
- * @author Nico_ND1
+ * @author  Nico_ND1
  */
-public class CoinsModule extends SimpleModule {
+public class TeamModule extends SimpleModule {
 
-    public CoinsModule() {
+    public TeamModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
-        LabyBergwerk.getInstance().getLobby().getModules().add(this);
-        
-        getBooleanElement().setVisible(false);
+        LabyBergwerk.getInstance().getBedWars().getModules().add(this);
 
-        /*setKeyVisible(false);
-        settingUpdated(false);
         getBooleanElement().setVisible(false);
-        getBooleanElement().getButtonAdvanced().enabled = false;
-        getBooleanElement().setSettingEnabled(false);
-        getBooleanElement().setSelected(false);
-        getBooleanElement().updateScreen();*/
     }
 
     @Override
     public String getDisplayName() {
-        return "Coins";
+        return "Team";
     }
 
     @Override
     public String getDisplayValue() {
-        return String.valueOf(LabyBergwerk.getInstance().getLobby().getCoins());
+        return LabyBergwerk.getInstance().getBedWars().getTeam();
     }
 
     @Override
     public String getDefaultValue() {
-        return "0";
+        return "/";
     }
 
     @Override
     public ControlElement.IconData getIconData() {
-        return new ControlElement.IconData(Material.GOLD_INGOT);
+        return new ControlElement.IconData(Material.LEATHER_LEGGINGS);
     }
 
     @Override
@@ -59,12 +52,12 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public String getSettingName() {
-        return "Coins";
+        return "Team";
     }
 
     @Override
     public String getDescription() {
-        return "Zeigt deine Coins an";
+        return "Zeigt dein Team an";
     }
 
     @Override
@@ -79,7 +72,8 @@ public class CoinsModule extends SimpleModule {
 
     @Override
     public boolean isShown() {
-        return LabyBergwerk.getInstance().getLobby().isEnabled() && getBooleanElement().getCurrentValue();
+        return LabyBergwerk.getInstance().getBedWars().getState() == BedWars.BedWarsState.INGAME
+                && LabyBergwerk.getInstance().getBedWars().isEnabled() && getBooleanElement().getCurrentValue();
     }
 
 }

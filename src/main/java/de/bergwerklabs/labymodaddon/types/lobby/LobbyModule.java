@@ -3,68 +3,86 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package de.bergwerklabs.labymodaddon.types.lobby;
 
 import de.bergwerklabs.labymodaddon.LabyBergwerk;
+import java.util.List;
+import net.labymod.ingamegui.Module;
 import net.labymod.ingamegui.ModuleCategory;
 import net.labymod.ingamegui.moduletypes.SimpleModule;
 import net.labymod.settings.elements.ControlElement;
+import net.labymod.settings.elements.SettingsElement;
+import net.labymod.utils.Consumer;
 import net.labymod.utils.Material;
 
 /**
  *
- * @author Nico_ND1
+ * @author  Nico_ND1
  */
-public class CoinsModule extends SimpleModule {
+public class LobbyModule extends SimpleModule {
 
-    public CoinsModule() {
+    public LobbyModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
-        LabyBergwerk.getInstance().getLobby().getModules().add(this);
-        
-        getBooleanElement().setVisible(false);
+        LabyBergwerk.getInstance().getLobby().setLobbyModule(this);
+    }
 
-        /*setKeyVisible(false);
-        settingUpdated(false);
-        getBooleanElement().setVisible(false);
-        getBooleanElement().getButtonAdvanced().enabled = false;
-        getBooleanElement().setSettingEnabled(false);
-        getBooleanElement().setSelected(false);
-        getBooleanElement().updateScreen();*/
+    @Override
+    public void init() {
+        getBooleanElement().addCallback(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean t) {
+                for(Module module : LabyBergwerk.getInstance().getLobby().getModules()) {
+                    module.getBooleanElement().setVisible(t);
+                }
+            }
+        });
+        
+        getBooleanElement().setSettingEnabled(true);
+        getBooleanElement().updateScreen();
+        
+        setKeyVisible(false);
+        this.bold = true;
     }
 
     @Override
     public String getDisplayName() {
-        return "Coins";
+        return null;
     }
 
     @Override
     public String getDisplayValue() {
-        return String.valueOf(LabyBergwerk.getInstance().getLobby().getCoins());
+        return null;
     }
 
     @Override
     public String getDefaultValue() {
-        return "0";
+        return null;
     }
 
     @Override
     public ControlElement.IconData getIconData() {
-        return new ControlElement.IconData(Material.GOLD_INGOT);
+        return new ControlElement.IconData(Material.NETHER_STAR);
     }
 
     @Override
     public void loadSettings() {
         //null
     }
+    
+    @Override
+    public void fillSubSettings(List<SettingsElement> list) {
+        list.clear();
+    }
 
     @Override
     public String getSettingName() {
-        return "Coins";
+        return "§bLobby-Module";
     }
 
     @Override
     public String getDescription() {
-        return "Zeigt deine Coins an";
+        return "Zeige die Module für die Lobby an";
     }
 
     @Override
@@ -76,10 +94,10 @@ public class CoinsModule extends SimpleModule {
     public ModuleCategory getCategory() {
         return LabyBergwerk.getInstance().getCategory();
     }
-
+    
     @Override
     public boolean isShown() {
-        return LabyBergwerk.getInstance().getLobby().isEnabled() && getBooleanElement().getCurrentValue();
+        return false;
     }
 
 }

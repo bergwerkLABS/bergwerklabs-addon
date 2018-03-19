@@ -24,6 +24,9 @@ public class InfoModule extends SimpleTextModule {
 
     public InfoModule() {
         LabyBergwerk.getInstance().getApi().registerModule(this);
+        LabyBergwerk.getInstance().getTryJump().getModules().add(this);
+
+        getBooleanElement().setVisible(false);
     }
 
     @Override
@@ -62,12 +65,13 @@ public class InfoModule extends SimpleTextModule {
 
     @Override
     public boolean isShown() {
-        return LabyBergwerk.getInstance().getTryJump().isEnabled() && getBooleanElement().getCurrentValue();
+        return LabyBergwerk.getInstance().getTryJump().getState() == TryJump.TryJumpState.INGAME
+                && LabyBergwerk.getInstance().getTryJump().isEnabled() && getBooleanElement().getCurrentValue();
     }
 
     @Override
     public String[] getValues() {
-        if (showFails) {
+        if (showFails && showSchwierigkeit) {
             String builder = "";
             if (LabyBergwerk.getInstance().getTryJump().getModule() != null) {
                 for (int i = 1; i < LabyBergwerk.getInstance().getTryJump().getFails(); i++) {
@@ -82,10 +86,25 @@ public class InfoModule extends SimpleTextModule {
 
             return new String[]{LabyBergwerk.getInstance().getTryJump().getModule() == null ? "/"
                 : LabyBergwerk.getInstance().getTryJump().getModule().getSchwierigkeit(), builder};
-        } else {
+        } else if (showSchwierigkeit && !showFails) {
             return new String[]{LabyBergwerk.getInstance().getTryJump().getModule() == null ? "/"
                 : LabyBergwerk.getInstance().getTryJump().getModule().getSchwierigkeit()};
+        } else if (!showSchwierigkeit && showFails) {
+            String builder = "";
+            if (LabyBergwerk.getInstance().getTryJump().getModule() != null) {
+                for (int i = 1; i < LabyBergwerk.getInstance().getTryJump().getFails(); i++) {
+                    builder += "X";
+                }
+                while (builder.length() < 3) {
+                    builder += "x";
+                }
+            } else {
+                builder = "xxx";
+            }
+
+            return new String[]{builder};
         }
+        return new String[]{};
     }
 
     private long nextX = System.currentTimeMillis();
@@ -93,7 +112,7 @@ public class InfoModule extends SimpleTextModule {
 
     @Override
     public String[] getDefaultValues() {
-        if (showFails) {
+        if (showFails && showSchwierigkeit) {
             String builder = "";
             for (int i = 0; i < xS; i++) {
                 builder += "X";
@@ -110,27 +129,51 @@ public class InfoModule extends SimpleTextModule {
             }
 
             return new String[]{"/", builder};
-        } else {
+        } else if (showSchwierigkeit && !showFails) {
             return new String[]{"/"};
+        } else if (!showSchwierigkeit && showFails) {
+            String builder = "";
+            for (int i = 0; i < xS; i++) {
+                builder += "X";
+            }
+            if (nextX < System.currentTimeMillis()) {
+                nextX = System.currentTimeMillis() + 1000;
+                xS++;
+            }
+            while (builder.length() < 3) {
+                builder += "x";
+            }
+            if (xS > 3) {
+                xS = 0;
+            }
+
+            return new String[]{builder};
         }
+        return new String[]{};
     }
 
     @Override
     public String[] getKeys() {
-        if (showFails) {
+        if (showFails && showSchwierigkeit) {
             return new String[]{"Schwierigkeit", "Fails"};
-        } else {
+        } else if (showSchwierigkeit && !showFails) {
             return new String[]{"Schwierigkeit"};
+        } else if (!showSchwierigkeit && showFails) {
+            return new String[]{"Fails"};
         }
+        return new String[]{};
     }
 
     @Override
     public String[] getDefaultKeys() {
-        if (showFails) {
+        if (showFails && showSchwierigkeit) {
             return new String[]{"Schwierigkeit", "Fails"};
-        } else {
+        } else if (showSchwierigkeit && !showFails) {
             return new String[]{"Schwierigkeit"};
+        } else if (!showSchwierigkeit && showFails) {
+            return new String[]{"Fails"};
         }
+        return new String[]{};
     }
 
     @Override
@@ -140,18 +183,44 @@ public class InfoModule extends SimpleTextModule {
 
     @Override
     public void fillSubSettings(List<SettingsElement> settingsElements) {
-        settingsElements.add(new BooleanElement("Zeige Fails an", new ControlElement.IconData(Material.BARRIER), new Consumer<Boolean>() {
+        ////////////////////////////////
+        fails = new BooleanElement("Zeige Fails an", new ControlElement.IconData(Material.BARRIER), new Consumer<Boolean>() {
             @Override
             public void accept(Boolean t) {
                 showFails = t;
             }
-        }, true));
+        }, true);
+
+        settingsElements.add(fails);
+        ////////////////////////////////
+
+        ////////////////////////////////
+        schwierigkeit = new BooleanElement("Zeige Schwierigkeit an", new ControlElement.IconData(Material.BARRIER), new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean t) {
+                showSchwierigkeit = t;
+            }
+        }, true);
+
+        settingsElements.add(schwierigkeit);
+        ////////////////////////////////
+
+        showSchwierigkeit = schwierigkeit.getCurrentValue();
+        showFails = fails.getCurrentValue();
     }
+
+    private BooleanElement fails, schwierigkeit;
 
     private boolean showFails = true;
 
     public boolean isShowFails() {
         return showFails;
+    }
+
+    private boolean showSchwierigkeit = true;
+
+    public boolean isShowSchwierigkeit() {
+        return showSchwierigkeit;
     }
 
 }
